@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Nuestra pregunta</title>
+<style>
+    body {
+        font-family: "Georgia", serif;
+        background: #faf9f7;
+        color: #333;
+        max-width: 700px;
+        margin: 80px auto;
+        line-height: 1.6;
+        text-align: center;
+        padding: 0 20px;
+        overflow-x: hidden;
+    }
+    textarea {
+        width: 80%;
+        min-height: 120px;
+        border: none;
+        border-bottom: 1px solid #aaa;
+        background: transparent;
+        font-size: 18px;
+        outline: none;
+        resize: none;
+        padding: 10px;
+        transition: border-color .4s;
+    }
+    textarea:focus {
+        border-bottom-color: #555;
+    }
+    button {
+        margin-top: 25px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        background: #e7bfd8;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #f4d7e9;
+    }
+
+    #final {
+        display: none;
+        margin-top: 45px;
+        font-size: 22px;
+        opacity: 0;
+        transition: opacity 1.5s ease;
+    }
+
+    #secret, #noMessage {
+        display: none;
+        margin-top: 25px;
+        font-size: 18px;
+        color: #a22;
+        opacity: 0;
+        transition: opacity 1.5s ease;
+    }
+
+    #moon {
+        font-size: 48px;
+        margin-top: 30px;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 2s ease, transform 1.6s ease;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Stars */
+    .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        opacity: 0;
+        animation: twinkle 2s infinite;
+    }
+    @keyframes twinkle {
+        0%, 100% {opacity: 0;}
+        50% {opacity: 0.8;}
+    }
+
+    #musicToggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity .3s;
+    }
+    #musicToggle:hover { opacity:1; }
+</style>
+</head>
+<body>
+
+<h2>Escribe aquí las cinco palabras que encontraste</h2>
+<p>(en el mismo orden en que te acompañaron)</p>
+
+<textarea id="words"></textarea><br>
+<button onclick="checkWords()">Continuar</button>
+
+<div id="moon">🌙</div>
+
+<div id="final">
+    <p>
+        Quieres vivirme en muchas lunas, en muchas constelaciones y en muchos páramos y glaciares,<br>
+        viendo bichofué y pajaritos bolita...<br><br>
+        como mi novia?
+    </p>
+    <button id="yesBtn">Sí ✨</button>
+    <button id="noBtn">No ❌</button>
+</div>
+
+<div id="secret">
+    <p>💌 Para mi Princesa: cada palabra que escribiste me recuerda por qué quiero vivir mil lunas contigo.</p>
+</div>
+
+<div id="noMessage">
+    <p>Novia, novia, no. Futura esposa ❤️</p>
+</div>
+
+<!-- Soft ambient music -->
+<audio id="bgm" src="music.mp3" loop></audio>
+<button id="musicToggle">🔈</button>
+
+<script>
+// Normalize input
+function normalize(str) {
+    return str.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+// Correct answer string
+const correct = normalize("hojuela candela langosta patagonia aroma");
+
+function checkWords() {
+    const input = normalize(document.getElementById("words").value);
+
+    if (input === correct) {
+        // Show moon fade
+        const moon = document.getElementById("moon");
+        moon.style.opacity = 1;
+        moon.style.transform = "scale(1)";
+
+        // Reveal final question
+        const fin = document.getElementById("final");
+        fin.style.display = "block";
+        setTimeout(() => fin.style.opacity = 1, 50);
+
+        // Create stars
+        createStars(40);
+    } else {
+        alert("Mmm... vuelve a sentir el orden.");
+    }
+}
+
+// Auto-expand textarea
+const textarea = document.getElementById("words");
+textarea.addEventListener("input", () => {
+    textarea.style.height = "auto";
+    textarea.style.height = (textarea.scrollHeight) + "px";
+});
+
+// Music toggle
+const bgm = document.getElementById("bgm");
+const toggle = document.getElementById("musicToggle");
+let playing = false;
+toggle.addEventListener("click", () => {
+    if (!playing) { bgm.play(); toggle.textContent = "🔊"; }
+    else { bgm.pause(); toggle.textContent = "🔈"; }
+    playing = !playing;
+});
+
+// Secret message
+document.getElementById("yesBtn").addEventListener("click", () => {
+    const secret = document.getElementById("secret");
+    secret.style.display = "block";
+    setTimeout(() => secret.style.opacity = 1, 50);
+});
+
+// "No" button message
+document.getElementById("noBtn").addEventListener("click", () => {
+    const noMsg = document.getElementById("noMessage");
+    noMsg.style.display = "block";
+    setTimeout(() => noMsg.style.opacity = 1, 50);
+});
+
+// Starfield behind moon
+function createStars(num) {
+    for (let i=0; i<num; i++){
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.width = star.style.height = Math.random()*3 + "px";
+        star.style.top = Math.random()*window.innerHeight + "px";
+        star.style.left = Math.random()*window.innerWidth + "px";
+        star.style.animationDuration = (Math.random()*3+2) + "s";
+        document.body.appendChild(star);
+    }
+}
+</script>
+
+</body>
+</html>
