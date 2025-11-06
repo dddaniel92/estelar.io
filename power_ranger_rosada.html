@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Anhelarte se queda corto</title>
+<title>Viaje estelario del Dr. Parnassus</title>
 <style>
     body {
         font-family: "Georgia", serif;
@@ -99,8 +99,8 @@
 </head>
 <body>
 
-<h2>Escribe aquí las cinco palabras que encontraste</h2>
-<p>(en el mismo orden en que te acompañaron)</p>
+<h2>¡Buenos días por la mañana, micelia! 🌞 ¿Cómo estuvo tu viaje estelar? 🌌 Espero que te hayas divertido. ¿Tienes listas tus respuestas? </h2>
+<p>Escríbelas en el orden en el que te acompañaron en tu bitácora de viaje 📝 (separadas por un espacio o por un enter)</p>
 
 <textarea id="words"></textarea><br>
 <button onclick="checkWords()">Continuar</button>
@@ -109,24 +109,24 @@
 
 <div id="final">
     <p>
-        Quieres vivirme en muchas lunas, en muchas constelaciones y en muchos páramos y glaciares,<br>
-        viendo bichofué y pajaritos bolita...<br><br>
-        como mi novia?
+        ¡Eso! ¿Así o más tesa? Bueno, mi amor, ahora sí a lo que vinimos (estoy frío helao' ⛄️):<br>
+        ¿Quieres vivirme en muchas lunas, en muchas constelaciones y en muchos páramos y glaciares,
+        viendo bichofués y pajaritos bola, pero ahora siendo oficialmente mi novia?<br><br>
     </p>
     <button id="yesBtn">Sí ✨</button>
-    <button id="noBtn">No ❌</button>
+    <button id="noBtn">No 😰</button>
 </div>
 
 <div id="secret">
-    <p>💌 Para mi Princesa: cada palabra que escribiste me recuerda por qué quiero vivir mil lunas contigo.</p>
+    <p>¡¿De verdad lo dices?! Yo me siento profundamente agradecido y amado al vivirnos como novios. Cada estación y respuesta en este viaje me recuerdan porqué quiero vivir mil universos contigo.</p>
 </div>
 
 <div id="noMessage">
-    <p>Novia, novia, no. Futura esposa ❤️</p>
+    <p>Novia, novia, no. Futura esposa 🪐</p>
 </div>
 
 <!-- Soft ambient music -->
-<audio id="bgm" src="music.mp3" loop></audio>
+<audio id="bgm" src="cerati.mp3" loop></audio>
 <button id="musicToggle">🔈</button>
 
 <script>
@@ -136,7 +136,7 @@ function normalize(str) {
 }
 
 // Correct answer string
-const correct = normalize("hojuela candela langosta patagonia aroma");
+const correct = normalize("bola primates viento apapachables imparipinnadas");
 
 function checkWords() {
     const input = normalize(document.getElementById("words").value);
@@ -155,7 +155,7 @@ function checkWords() {
         // Create stars
         createStars(40);
     } else {
-        alert("Mmm... vuelve a sentir el orden.");
+        alert("Mmm... ¿estás segura?");
     }
 }
 
